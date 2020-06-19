@@ -16,7 +16,8 @@ git clone https://github.com/deepakk87/msl.git
 Install the following plugin
 ```
 code --install-extension ms-vscode.cpptools
-code --install-extension ms-vscode.cmake-tools 
+code --install-extension ms-vscode.cmake-tools
+code --install-extension wayou.vscode-todo-highlight
 ```
 
 ## Open in vs code
@@ -45,7 +46,11 @@ https://vector-of-bool.github.io/docs/vscode-cmake-tools/debugging.html
 
 `git pull --rebase` <-- If push fails do this and then push again
 
-## List of commits
+## List of interesting commits
 * Simple Hello World application using cmake
 https://github.com/deepakk87/msl/commit/20d734dd192d948a49a18b50221db2897375ceb1
+
+* Adding gtest tests with cmake
+https://github.com/deepakk87/msl/commit/7d88fa17ceb4f47285f943a4d07b801f61960c9b
+
 
