@@ -6,3 +6,4 @@ project(msl)
 # add the executable
 add_executable(hello hello_world.cxx)
 add_executable(add add.cpp)
+add_subdirectory(tests)
