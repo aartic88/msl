@@ -16,7 +16,7 @@ Sieve Sieve::builder(int n)
         arr[1] = false;
     }
 
-    if (n >= 1)
+    if (n >= 2)
     {
         arr[2] = true;
     }

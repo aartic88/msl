@@ -1,0 +1,1 @@
+add_executable(bnb ppp/bnc.cpp)
