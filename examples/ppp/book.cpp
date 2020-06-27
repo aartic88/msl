@@ -47,6 +47,9 @@ bool operator==(const Book &a, const Book &b) {
   && a.ISBN == b.ISBN && a.gen==b.gen);
 }
 bool operator!=(const Book &a, const Book &b) { return !(a == b); }
+
+/* -----------PATRON CLASS-----------------*/
+
 int main() {
   Book book{"124-224-432-4h3", "C++", "Bjarne", Genre::nonfiction};
   // Book book1{"124-224-432-4h3", "C++", "Bjarne"};
