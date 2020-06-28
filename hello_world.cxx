@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include<cmath>
 
 int main () {
-    std::string s("Deepak");
-    std::string * p = new std::string("Deepak");
+
     
     
 }

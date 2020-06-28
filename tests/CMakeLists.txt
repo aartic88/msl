@@ -25,3 +25,8 @@ add_executable(arraylist_test arraylist_test.cpp)
 target_link_libraries(arraylist_test msl gtest gtest_main pthread)
 # Mark the executable as a test
 add_test(arraylist_test linkedlist_test)
+
+
+add_executable(doublelinklist_test doublelinklist_test.cpp)
+target_link_libraries(doublelinklist_test msl gtest gtest_main pthread)
+add_test(doublelinklist_test doublelinklist_test)
