@@ -13,10 +13,33 @@ public:
 
     ArrayList(const std::initializer_list<string> &list) : capacity(DEFAULT_CAPACITY), size(0), arr(new string[DEFAULT_CAPACITY])
     {
+        cout << "List Constuctor called" << endl;
         for (auto it = list.begin(); it != list.end(); it++)
         {
             push_back(*it);
         }
+    }
+
+    ArrayList(const ArrayList &copy)
+    {
+        cout << "Copy Constuctor called" << endl;
+        arr = new string[copy.capacity];
+        for (int i = 0; i < copy.size; i++)
+        {
+            arr[i] = copy[i];
+        }
+        capacity = copy.capacity;
+        size = copy.size;
+    }
+
+    ArrayList &operator=(const ArrayList &rhs)
+    {
+        cout << "Assignment operator called" << endl;
+        ArrayList temp(rhs);
+        swap(this->size, temp.size);
+        swap(this->capacity, temp.capacity);
+        swap(this->arr, temp.arr);
+        return *this;
     }
 
     ~ArrayList()
@@ -92,6 +115,20 @@ TEST(testIsArrayList, basicDynamicTest)
     (*arr)[100] = "Rani";
     EXPECT_EQ((*arr)[100], "Rani");
     delete arr;
+}
+
+TEST(testIsArrayList, basicCopyDynamicTest)
+{
+    ArrayList arr;
+    arr.push_back("Aarya");
+    arr.push_back("Deepak");
+    arr.push_back("Rani");
+    EXPECT_EQ(arr.getSize(), 3);
+    EXPECT_EQ(arr[0], "Aarya");
+    EXPECT_EQ(arr[1], "Deepak");
+    EXPECT_EQ(arr[2], "Rani");
+    ArrayList arr2(arr);
+    arr2 = arr;
 }
 
 TEST(testIsArrayList, basicConstDynamicTest)

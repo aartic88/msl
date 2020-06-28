@@ -18,3 +18,5 @@ add_library(msl STATIC ${library_sources})
 # Add the tests. They can access the msl library
 add_subdirectory(tests)
 add_subdirectory(examples)
+
+add_executable(helloworld hello_world.cxx)
