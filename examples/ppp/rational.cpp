@@ -9,8 +9,8 @@ public:
   void set_denominator(int a) { denominator = a; }
   int get_numerator() const { return numerator; }
   int get_denominator() const { return denominator; }
-  Rational &operator=(const Rational &a);
-  Rational &operator*(const Rational &a, const Rational &b);
+  Rational &operator=(const Rational &rhs);
+  Rational operator*(const Rational &rhs) const;
 
 private:
   int numerator;
@@ -30,12 +30,12 @@ Rational &Rational::operator=(const Rational &a) {
   return *this;
 }
 
-Rational Rational::operator*(const Rational &a, const Rational &b) {
-  //Rational c;
+Rational Rational::operator*(const Rational &a) const {
+  Rational c;
   int m, n;
-  m = a.get_numerator() * (b.get_numerator());
-  n = a.get_denominator() * (b.get_denominator());
-  this->set_denominator(m);
-  this->set_denominator(n);
-  return *this;
+  m = a.get_numerator() * (this->get_numerator());
+  n = a.get_denominator() * (this->get_denominator());
+  c.set_denominator(m);
+  c.set_denominator(n);
+  return c;
 }
