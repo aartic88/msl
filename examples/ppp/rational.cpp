@@ -13,7 +13,7 @@ public:
   Rational &operator=(const Rational &a);
   Rational operator*(const Rational &a) const;
   Rational operator/(const Rational &a) const;
-  double convert_to_double();
+  double convert_to_double() {return (double)numerator/denominator;}
 
 private:
   int numerator;
@@ -77,6 +77,6 @@ int main() {
   c = a / b;
   cout << "Division : " << c.get_numerator() << "/" << c.get_denominator()
        << endl;
-  //cout << c.convert_to_double();
+  cout << c.convert_to_double();
 
 }
