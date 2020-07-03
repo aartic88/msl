@@ -33,3 +33,7 @@ add_test(doublelinklist_test doublelinklist_test)
 add_executable(arraylinkedlist_test arraylinkedlist_test.cpp)
 target_link_libraries(arraylinkedlist_test msl gtest gtest_main pthread)
 add_test(arraylinkedlist_test arraylinkedlist_test)
+
+add_executable(Singlylinklist_test Singlylinklist_test.cpp)
+target_link_libraries(Singlylinklist_test msl gtest gtest_main pthread)
+add_test(Singlylinklist_test Singlylinklist_test)
