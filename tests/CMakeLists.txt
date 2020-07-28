@@ -34,10 +34,22 @@ add_executable(arraylinkedlist_test arraylinkedlist_test.cpp)
 target_link_libraries(arraylinkedlist_test msl gtest gtest_main pthread)
 add_test(arraylinkedlist_test arraylinkedlist_test)
 
-add_executable(Singlylinklist_test Singlylinklist_test.cpp)
-target_link_libraries(Singlylinklist_test msl gtest gtest_main pthread)
-add_test(Singlylinklist_test Singlylinklist_test)
+add_executable(SinglyLinkedList_test SinglyLinkedList_test.cpp)
+target_link_libraries(SinglyLinkedList_test msl gtest gtest_main pthread)
+add_test(SinglyLinkedList_test SinglyLinkedList_test)
 
 add_executable(doublylinklist_test doublylinklist_test.cpp)
 target_link_libraries(doublylinklist_test msl gtest gtest_main pthread)
 add_test(doublylinklist_test doublylinklist_test)
+
+add_executable(CircularlyLinkedList_test CircularlyLinkedList_test.cpp)
+target_link_libraries(CircularlyLinkedList_test msl gtest gtest_main pthread)
+add_test(CircularlyLinkedList_test CircularlyLinkedList_test)
+
+add_executable(ArrayStack_test ArrayStack_test.cpp)
+target_link_libraries(ArrayStack_test msl gtest gtest_main pthread)
+add_test(ArrayStack_test ArrayStack_test)
+
+add_executable(LinkedStack_test LinkedStack_test.cpp)
+target_link_libraries(LinkedStack_test msl gtest gtest_main pthread)
+add_test(LinkedStack_test LinkedStack_test)

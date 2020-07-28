@@ -1,49 +1,54 @@
-
+#ifndef SINGLYLINKEDLIST_HPP_
+#define SINGLYLINKEDLIST_HPP_
 #include <iostream>
 #include <string>
 // using namespace std;
 class Node {
-  friend class Singlylinklist;
+  friend class SinglyLinkedList;
 
 private:
   std::string data;
   Node *next;
 };
-class Singlylinklist {
+class SinglyLinkedList {
 public:
-  Singlylinklist();
-  ~Singlylinklist();
+  SinglyLinkedList();
+  ~SinglyLinkedList();
   bool empty() const;
-  std::string front();
+  std::string &front()const;
   Node *addfront(const std::string &d);
   void removefront();
   void printlist();
   std::string &getValue(Node *);
   Node *getNextAddress(Node *);
+  int size()const { return sz; };
 
 private:
   Node *head;
+  int sz = 0;
 };
-Singlylinklist::Singlylinklist() : head(NULL) {}
-Singlylinklist::~Singlylinklist() {
+SinglyLinkedList::SinglyLinkedList() : head(NULL) {}
+SinglyLinkedList::~SinglyLinkedList() {
   while (!empty())
     removefront();
 }
-bool Singlylinklist::empty() const { return head == NULL; }
-std::string Singlylinklist::front() { return head->data; }
-Node *Singlylinklist::addfront(const std::string &d) {
+bool SinglyLinkedList::empty() const { return head == NULL; }
+std::string &SinglyLinkedList::front()const { return head->data; }
+Node *SinglyLinkedList::addfront(const std::string &d) {
   Node *temp = new Node;
   temp->data = d;
   temp->next = head;
   head = temp;
+  sz++;
   return head;
 }
-void Singlylinklist::removefront() {
+void SinglyLinkedList::removefront() {
   Node *old = head;
   head = old->next;
+  sz--;
   delete old;
 }
-void Singlylinklist::printlist() {
+void SinglyLinkedList::printlist() {
   Node *temp = head;
   std::cout << "{";
   while (temp) {
@@ -51,17 +56,18 @@ void Singlylinklist::printlist() {
     temp = temp->next;
     std::cout << " ";
   }
-  std::cout << "}";
+  std::cout << "} Size = " << size();
 }
-std::string &Singlylinklist::getValue(Node *temp) {
+std::string &SinglyLinkedList::getValue(Node *temp) {
   if (temp != nullptr) {
     return temp->data;
   }
   throw "bad input";
 }
-Node *Singlylinklist::getNextAddress(Node *temp) {
+Node *SinglyLinkedList::getNextAddress(Node *temp) {
   if (temp != nullptr) {
     return temp->next;
   }
   return nullptr;
 }
+#endif
