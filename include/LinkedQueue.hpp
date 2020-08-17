@@ -1,8 +1,7 @@
 #ifndef LINKEDQUEUE_HPP_
 #define LINKEDQUEUE_HPP_
-#include<string>
 #include "CircularlyLinkedList.hpp"
-
+#include <string>
 
 class LinkedQueue {
 public:

@@ -15,13 +15,13 @@ public:
   SinglyLinkedList();
   ~SinglyLinkedList();
   bool empty() const;
-  std::string &front()const;
+  std::string &front() const;
   Node *addfront(const std::string &d);
   void removefront();
   void printlist();
   std::string &getValue(Node *);
   Node *getNextAddress(Node *);
-  int size()const { return sz; };
+  int size() const { return sz; };
 
 private:
   Node *head;
@@ -33,7 +33,7 @@ SinglyLinkedList::~SinglyLinkedList() {
     removefront();
 }
 bool SinglyLinkedList::empty() const { return head == NULL; }
-std::string &SinglyLinkedList::front()const { return head->data; }
+std::string &SinglyLinkedList::front() const { return head->data; }
 Node *SinglyLinkedList::addfront(const std::string &d) {
   Node *temp = new Node;
   temp->data = d;

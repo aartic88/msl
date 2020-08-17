@@ -53,3 +53,23 @@ add_test(ArrayStack_test ArrayStack_test)
 add_executable(LinkedStack_test LinkedStack_test.cpp)
 target_link_libraries(LinkedStack_test msl gtest gtest_main pthread)
 add_test(LinkedStack_test LinkedStack_test)
+
+add_executable(ArrayVector_test ArrayVector_test.cpp)
+target_link_libraries(ArrayVector_test msl gtest gtest_main pthread)
+add_test(ArrayVector_test ArrayVector_test)
+
+add_executable(NodeList_test NodeList_test.cpp)
+target_link_libraries(NodeList_test msl gtest gtest_main pthread)
+add_test(NodeList_test NodeList_test)
+
+add_executable(LinkedBinaryTree_test LinkedBinaryTree_test.cpp)
+target_link_libraries(LinkedBinaryTree_test msl gtest gtest_main pthread)
+add_test(LinkedBinaryTree_test LinkedBinaryTree_test)
+
+add_executable(ListPriorityQueue_test ListPriorityQueue_test.cpp)
+target_link_libraries(ListPriorityQueue_test msl gtest gtest_main pthread)
+add_test(ListPriorityQueue_test ListPriorityQueue_test)
+
+add_executable(heappriorityqueue_test heappriorityqueue_test.cpp)
+target_link_libraries(heappriorityqueue_test msl gtest gtest_main pthread)
+add_test(heappriorityqueue_test heappriorityqueue_test)

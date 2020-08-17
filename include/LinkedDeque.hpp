@@ -48,7 +48,5 @@ void LinkedDeque::removeback() {
     throw "Empty Deque";
   }
 }
-void LinkedDeque::print(){
-    dque.printlist();
-}
+void LinkedDeque::print() { dque.printlist(); }
 #endif
