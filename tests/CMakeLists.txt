@@ -73,3 +73,7 @@ add_test(ListPriorityQueue_test ListPriorityQueue_test)
 add_executable(heappriorityqueue_test heappriorityqueue_test.cpp)
 target_link_libraries(heappriorityqueue_test msl gtest gtest_main pthread)
 add_test(heappriorityqueue_test heappriorityqueue_test)
+
+add_executable(hashmap_test hashmap_test.cpp)
+target_link_libraries(hashmap_test msl gtest gtest_main pthread)
+add_test(hashmap_test hashmap_test)
