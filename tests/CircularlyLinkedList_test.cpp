@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 using namespace std;
 TEST(testIsLinkedList, basicTest) {
-  CircularlyLinkedList greekGod;
+  CircularlyLinkedList<std::string> greekGod;
   greekGod.add("zeus");
   greekGod.printlist();
   greekGod.add("aries");

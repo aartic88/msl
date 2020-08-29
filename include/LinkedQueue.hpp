@@ -2,40 +2,42 @@
 #define LINKEDQUEUE_HPP_
 #include "CircularlyLinkedList.hpp"
 #include <string>
-
-class LinkedQueue {
+template <typename E> class LinkedQueue {
 public:
   LinkedQueue();
+  int size() const;
   bool empty() const;
-  std::string &front() const;
-  void enqueue(const std::string &);
-  void dequeue();
+  E &front() const;        // return front value
+  void enqueue(const E &); // add value
+  void dequeue();          // remove value
   void print();
 
 private:
-  CircularlyLinkedList que;
+  CircularlyLinkedList<E> que;
+  int n;
 };
-LinkedQueue::LinkedQueue() : que() {}
-bool LinkedQueue::empty() const { return que.size(); }
-
-std::string &LinkedQueue::front() const {
-  if (empty()) {
+template <typename E> LinkedQueue<E>::LinkedQueue() : que(), n(0) {}
+template <typename E> int LinkedQueue<E>::size() const { return n; }
+template <typename E> bool LinkedQueue<E>::empty() const { return n == 0; }
+template <typename E> E &LinkedQueue<E>::front() const {
+  if (!empty()) {
     return que.front();
   } else {
     throw "Empty queue";
   }
 }
-
-void LinkedQueue::enqueue(const std::string &data) {
+template <typename E> void LinkedQueue<E>::enqueue(const E &data) {
   que.add(data);
   que.advance();
+  n++;
 }
-void LinkedQueue::dequeue() {
-  if (empty()) {
+template <typename E> void LinkedQueue<E>::dequeue() {
+  if (!empty()) {
     que.remove();
   } else {
     throw "Empty queue";
   }
+  n--;
 }
-void LinkedQueue::print() { que.printlist(); }
+template <typename E> void LinkedQueue<E>::print() { que.printlist(); }
 #endif

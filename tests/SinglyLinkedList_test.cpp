@@ -2,12 +2,12 @@
 #include <gtest/gtest.h>
 using namespace std;
 TEST(testIsLinkedList, basicTest) {
-  SinglyLinkedList greekGod;
-  Node *head = greekGod.addfront("zeus");
+  SinglyLinkedList<std::string> greekGod;
+  SNode<std::string> *head = greekGod.addfront("zeus");
   EXPECT_EQ(greekGod.getValue(head), "zeus");
   greekGod.printlist();
 
-  Node *next = greekGod.addfront("aries");
+  SNode<std::string> *next = greekGod.addfront("aries");
   EXPECT_EQ(greekGod.getValue(next), "aries");
   greekGod.printlist();
 

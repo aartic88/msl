@@ -1,34 +1,47 @@
 #ifndef LINKEDSTACK_HPP_
 #define LINKEDSTACK_HPP_
 #include "SinglyLinkedList.hpp"
+
+template <typename E>
 class LinkedStack {
 public:
   LinkedStack();
   bool empty() const;
-  std::string &top() const;
-  void push(const std::string &);
+  const E& top() const;
+  void push(const E &);
   void pop();
   void print();
 
 private:
-  SinglyLinkedList stk;
+  SinglyLinkedList<E> stk;
 };
-LinkedStack::LinkedStack() : stk() {}
-bool LinkedStack::empty() const { return stk.size(); }
-std::string &LinkedStack::top() const {
+template <typename E>
+LinkedStack<E>::LinkedStack() : stk() {}
+
+template <typename E>
+bool LinkedStack<E>::empty() const { return stk.size(); }
+
+template <typename E>
+const E& LinkedStack<E>::top() const {
   if (empty() != 0) {
     return stk.front();
   } else {
     throw "Empty stack";
   }
 }
-void LinkedStack::push(const std::string &data) { stk.addfront(data); }
-void LinkedStack::pop() {
+
+template <typename E>
+void LinkedStack<E>::push(const E &data) { stk.addfront(data); }
+
+template <typename E>
+void LinkedStack<E>::pop() {
   if (empty() != 0) {
     stk.removefront();
   } else {
     throw "Empty stack";
   }
 }
-void LinkedStack::print() { stk.printlist(); }
+
+template <typename E>
+void LinkedStack<E>::print() { stk.printlist(); }
 #endif

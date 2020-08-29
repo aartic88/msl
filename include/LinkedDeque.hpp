@@ -1,52 +1,61 @@
 #ifndef LINKEDDEQUE_HPP_
 #define LINKEDDEQUE_HPP_
 #include "doublylinklist.hpp"
-
-class LinkedDeque {
+template <typename E> class LinkedDeque {
 public:
   LinkedDeque();
   int size() const;
   bool empty() const;
-  std::string &front() const;
-  std::string &back() const;
-  void insertfront(const std::string &);
-  void insertback(const std::string &);
+  E &front() const;
+  E &back() const;
+  void insertfront(const E &);
+  void insertback(const E &);
   void removefront();
   void removeback();
   void print();
 
 private:
-  DoublyLinkedList dque;
+  DoublyLinkedList<E> dque;
   int sz;
 };
-LinkedDeque::LinkedDeque() : dque() {}
-int LinkedDeque::size() const { return sz; }
-bool LinkedDeque::empty() const { return sz == 0; }
-std::string &LinkedDeque::front() const { return dque.front(); }
-std::string &LinkedDeque::back() const { return dque.back(); }
-void LinkedDeque::insertfront(const std::string &data) {
+
+template <typename E> LinkedDeque<E>::LinkedDeque() : dque() {}
+
+template <typename E> int LinkedDeque<E>::size() const { return sz; }
+
+template <typename E> bool LinkedDeque<E>::empty() const { return sz == 0; }
+
+template <typename E> E &LinkedDeque<E>::front() const { return dque.front(); }
+
+template <typename E> E &LinkedDeque<E>::back() const { return dque.back(); }
+
+template <typename E> void LinkedDeque<E>::insertfront(const E &data) {
   dque.addfront(data);
   sz++;
 }
-void LinkedDeque::insertback(const std::string &data) {
+
+template <typename E> void LinkedDeque<E>::insertback(const E &data) {
   dque.addback(data);
   sz++;
 }
-void LinkedDeque::removefront() {
-  if (empty()) {
+
+template <typename E> void LinkedDeque<E>::removefront() {
+  if (!empty()) {
     dque.removefront();
     sz--;
   } else {
     throw "Empty Deque";
   }
 }
-void LinkedDeque::removeback() {
-  if (empty()) {
+
+template <typename E> void LinkedDeque<E>::removeback() {
+  if (!empty()) {
     dque.removeback();
     sz--;
   } else {
     throw "Empty Deque";
   }
 }
-void LinkedDeque::print() { dque.printlist(); }
+
+template <typename E> void LinkedDeque<E>::print() { dque.printlist(); }
 #endif

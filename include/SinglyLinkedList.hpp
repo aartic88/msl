@@ -3,53 +3,65 @@
 #include <iostream>
 #include <string>
 // using namespace std;
-class Node {
-  friend class SinglyLinkedList;
-
+template <typename E> class SNode {
 private:
-  std::string data;
-  Node *next;
+  E data;
+  SNode<E> *next;
+  template <typename L> friend class SinglyLinkedList;   //friend class SinglyLinkedList<E> wasnt accepting????????? 
 };
-class SinglyLinkedList {
+
+template <typename E> class SinglyLinkedList {
 public:
   SinglyLinkedList();
-  ~SinglyLinkedList();
+ ~SinglyLinkedList();
   bool empty() const;
-  std::string &front() const;
-  Node *addfront(const std::string &d);
+  E &front() const;
+  SNode<E> *addfront(const E &d);
   void removefront();
   void printlist();
-  std::string &getValue(Node *);
-  Node *getNextAddress(Node *);
+   E &getValue(SNode<E> *);
+   SNode<E> *getNextAddress(SNode<E> *);
   int size() const { return sz; };
 
 private:
-  Node *head;
+  SNode<E> *head;
   int sz = 0;
 };
-SinglyLinkedList::SinglyLinkedList() : head(NULL) {}
-SinglyLinkedList::~SinglyLinkedList() {
+template <typename E> SinglyLinkedList<E>::SinglyLinkedList() : head(NULL) {}
+
+template <typename E>SinglyLinkedList<E> ::~SinglyLinkedList() {
   while (!empty())
     removefront();
 }
-bool SinglyLinkedList::empty() const { return head == NULL; }
-std::string &SinglyLinkedList::front() const { return head->data; }
-Node *SinglyLinkedList::addfront(const std::string &d) {
-  Node *temp = new Node;
+
+template <typename E> bool SinglyLinkedList<E>::empty() const {
+  return head == NULL;
+}
+
+template <typename E> E &SinglyLinkedList<E>::front() const {
+  return head->data;
+}
+
+template <typename E> SNode<E> *SinglyLinkedList<E>::addfront(const E &d) {
+  SNode<E> *temp = new SNode<E>;
   temp->data = d;
   temp->next = head;
   head = temp;
   sz++;
   return head;
 }
-void SinglyLinkedList::removefront() {
-  Node *old = head;
+
+template <typename E>
+void SinglyLinkedList<E>::removefront() {
+  SNode<E> *old = head;
   head = old->next;
   sz--;
   delete old;
 }
-void SinglyLinkedList::printlist() {
-  Node *temp = head;
+
+template <typename E>
+void SinglyLinkedList<E>::printlist() {
+  SNode<E> *temp = head;
   std::cout << "{";
   while (temp) {
     std::cout << temp->data;
@@ -58,13 +70,16 @@ void SinglyLinkedList::printlist() {
   }
   std::cout << "} Size = " << size();
 }
-std::string &SinglyLinkedList::getValue(Node *temp) {
+template <typename E>
+E &SinglyLinkedList<E>::getValue(SNode<E> *temp) {
   if (temp != nullptr) {
     return temp->data;
   }
   throw "bad input";
 }
-Node *SinglyLinkedList::getNextAddress(Node *temp) {
+
+template <typename E>
+SNode<E> *SinglyLinkedList<E>::getNextAddress(SNode<E> *temp) {
   if (temp != nullptr) {
     return temp->next;
   }

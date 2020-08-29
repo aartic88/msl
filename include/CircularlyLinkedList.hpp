@@ -3,42 +3,41 @@
 
 #include <iostream>
 #include <string>
-
-class CNode {
+template <typename E> class CNode {
 private:
-  std::string data;
-  CNode *next;
-  friend class CircularlyLinkedList;
+  E data;
+  CNode<E> *next;
+  template <typename L> friend class CircularlyLinkedList;
 };
-
-class CircularlyLinkedList {
+template <typename E> class CircularlyLinkedList {
 public:
   CircularlyLinkedList();
   ~CircularlyLinkedList();
   bool empty() const;
-  std::string &front() const;
-  std::string &back() const;
-  void add(const std::string &d);
+  E &front() const;
+  E &back() const;
+  void add(const E &d);
   void advance();
   void remove();
   void printlist();
   int size() const { return sz; }
 
 private:
-  CNode *cursor;
+  CNode<E> *cursor;
   int sz = 0;
 };
-
-CircularlyLinkedList::CircularlyLinkedList() : cursor(NULL) {}
-CircularlyLinkedList::~CircularlyLinkedList() {
+template <typename E>
+CircularlyLinkedList<E>::CircularlyLinkedList() : cursor(NULL) {}
+template <typename E> CircularlyLinkedList<E>::~CircularlyLinkedList() {
   while (!empty())
     remove();
 }
-
-bool CircularlyLinkedList::empty() const { return cursor == NULL; }
-
-void CircularlyLinkedList::remove() { // remove node after cursor
-  CNode *old = cursor->next;
+template <typename E> bool CircularlyLinkedList<E>::empty() const {
+  return cursor == NULL;
+}
+template <typename E>
+void CircularlyLinkedList<E>::remove() { // remove node after cursor
+  CNode<E> *old = cursor->next;
   if (old == cursor) { // only node
     cursor = NULL;
   } else {
@@ -47,13 +46,15 @@ void CircularlyLinkedList::remove() { // remove node after cursor
   sz--;
   delete old;
 }
-
-std::string &CircularlyLinkedList::front() const { return cursor->next->data; }
-
-std::string &CircularlyLinkedList::back() const { return cursor->data; }
-
-void CircularlyLinkedList::add(const std::string &data) { // after cursor
-  CNode *temp = new CNode;
+template <typename E> E &CircularlyLinkedList<E>::front() const {
+  return cursor->next->data;
+}
+template <typename E> E &CircularlyLinkedList<E>::back() const {
+  return cursor->data;
+}
+template <typename E>
+void CircularlyLinkedList<E>::add(const E &data) { // after cursor
+  CNode<E> *temp = new CNode<E>;
   temp->data = data;
   if (cursor == NULL) {
     temp->next = temp; // single node
@@ -65,10 +66,11 @@ void CircularlyLinkedList::add(const std::string &data) { // after cursor
     sz++;
   }
 }
-void CircularlyLinkedList::advance() { cursor = cursor->next; }
-
-void CircularlyLinkedList::printlist() {
-  CNode *temp = cursor;
+template <typename E> void CircularlyLinkedList<E>::advance() {
+  cursor = cursor->next;
+}
+template <typename E> void CircularlyLinkedList<E>::printlist() {
+  CNode<E> *temp = cursor;
   std::cout << "{";
   for (int i = 0; i < size(); i++) {
     std::cout << temp->data;

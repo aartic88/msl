@@ -6,8 +6,8 @@
 template <typename E> class LinkedBinaryTree {
 protected:
   //-------NODE declaration---------
-  template <typename N> struct Node {
-    N data;
+  struct Node {
+    E data;
     Node *par;          // parent
     Node *left, *right; // left and right child
     Node() : data(), par(NULL), left(NULL), right(NULL) {} // constructor
@@ -16,35 +16,35 @@ protected:
 public:
   //------POSITION CLASS-------
   
-  template <typename P> class Position {
+  class Position {
   private:
-    Node<P> *v;
+    Node *v;
 
   public:
-    Position(Node<P> *_v = NULL) : v(_v) {} // Constructor
-    P &operator*() { return v->data; }
+    Position(Node *_v = NULL) : v(_v) {} // Constructor
+    E &operator*() { return v->data; }
     Position left() const { return Position(v->left); }
     Position right() const { return Position(v->right); }
     Position parent() const { return Position(v->par); }
     bool isRoot() const { return v->par == NULL; }
     bool isExternal() const { return v->left == NULL && v->right == NULL; }
-    friend class LinkedBinaryTree<E>;
+    friend class LinkedBinaryTree;
   };
   //-------BINARYTREE methods------
   LinkedBinaryTree();
   int size() const;
   bool empty() const;
-  Position<E> root() const;
-  std::list<Position<E>> positions() const; // return List of Positions
+  Position root() const;
+  std::list<Position> positions() const; // return List of Positions
   void addRoot();
-  void expandExternal(const Position<E> &p);
-  Position<E> removeAboveExternal(const Position<E> &p);
+  void expandExternal(const Position &p);
+  Position removeAboveExternal(const Position &p);
 
 protected:
-  void preorder(Node<E> *v, std::list<Position<E>> &) const;
+  void preorder(Node *v, std::list<Position> &) const;
 
 private:
-  Node<E> *_root;
+  Node *_root;
   int n;
 };
 
@@ -58,25 +58,26 @@ template <typename E>
 bool LinkedBinaryTree<E>::empty() const { return size() == 0; }
 
 template <typename E>
-LinkedBinaryTree<E>::Position<E> LinkedBinaryTree<E>::root() const {
-  return LinkedBinaryTree<E>::Position<E>(_root);
+typename LinkedBinaryTree<E>::Position LinkedBinaryTree<E>::root() const {   ///////what is this typename????????
+  return LinkedBinaryTree<E>::Position(_root);
 }
 
 template <typename E>
 void LinkedBinaryTree<E>::addRoot() {
-  _root = new Node<E>;
+  _root = new Node;
   n = 1;
 }
 
 template <typename E>
-void LinkedBinaryTree<E>::expandExternal(const LinkedBinaryTree<E>::Position<E> &p) {
-  Node<E> *v = p.v;
-  v->left = new Node<E>;
+void LinkedBinaryTree<E>::expandExternal(const LinkedBinaryTree<E>::Position &p) {
+  Node *v = p.v;
+  v->left = new Node;
   v->left->par = v;
-  v->right = new Node<E>;
+  v->right = new Node;
   v->right->par = v;
   n += 2;
 }
+/*
 template <typename E>
 LinkedBinaryTree<E>::Position<E>
 LinkedBinaryTree<E>::removeAboveExternal(const LinkedBinaryTree<E>::Position<E> &p) {
@@ -100,18 +101,16 @@ LinkedBinaryTree<E>::removeAboveExternal(const LinkedBinaryTree<E>::Position<E> 
   n -= 2;
   return LinkedBinaryTree<E>::Position<E>(sib);
 }
-
+*/
 template <typename E>
- std::list<LinkedBinaryTree<E>::Position<E> > LinkedBinaryTree<E>::positions() const {
-  std::list<LinkedBinaryTree<E>::Position<E>> pl;
+ std::list<typename LinkedBinaryTree<E>::Position> LinkedBinaryTree<E>::positions() const {  ///again adding type?????
+  std::list<LinkedBinaryTree<E>::Position> pl;
   preorder(_root, pl);
   return pl;
 }
 template <typename E>
-void LinkedBinaryTree<E>::preorder(
-    LinkedBinaryTree<E>::Node<E> *v,
-    std::list<LinkedBinaryTree<E>::Position<E>> &pl) const {
-  pl.push_back(LinkedBinaryTree<E>::Position<E>(v));
+void LinkedBinaryTree<E>::preorder(LinkedBinaryTree<E>::Node *v,std::list<LinkedBinaryTree<E>::Position> &pl) const{
+  pl.push_back(LinkedBinaryTree<E>::Position(v));
   if (v->left != NULL) {
     preorder(v->left, pl);
   }
@@ -119,4 +118,5 @@ void LinkedBinaryTree<E>::preorder(
     preorder(v->right, pl);
   }
 }
+
 #endif
