@@ -81,3 +81,7 @@ add_test(hashmap_test hashmap_test)
 add_executable(searchtree_test hashmap_test.cpp)
 target_link_libraries(searchtree_test msl gtest gtest_main pthread)
 add_test(searchtree_test searchtree_test)
+
+add_executable(graph_dfs_test graph_dfs_test.cpp)
+target_link_libraries(graph_dfs_test msl gtest gtest_main pthread)
+add_test(graph_dfs_test graph_dfs_test)

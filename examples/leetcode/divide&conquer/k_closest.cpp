@@ -20,7 +20,8 @@ public:
                 r = p - 1;
             }
         }
-        return vector<vector<int>>(points.begin(), points.begin() + K);
+
+        return std::vector<vector<int>>(points.begin(), points.begin() + K);
     }
 private:
     bool farther(vector<int>& p, vector<int>& q) {

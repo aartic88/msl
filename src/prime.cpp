@@ -1,4 +1,4 @@
-#include <cmath>
+#include <math.h>
 // This runs in Theta (n^.5)
 bool isPrime(int n)
 {

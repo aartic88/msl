@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 using namespace std;
 vector<int> input() {
   vector<int> b;
@@ -31,7 +32,7 @@ void bullcow(vector<int> a, vector<int> b) {
 int main() {
   vector<int> a;
   for (int i = 0; i < 4; i++)
-    a.push_back(rand() % 10);
+    a.push_back((int)(rand() % 10));
 
   vector<int> b;
   do {

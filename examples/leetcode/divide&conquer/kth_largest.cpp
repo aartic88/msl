@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ private:
     int pivot = nums[left], l = left + 1, r = right;
     while (l <= r) {
       if (nums[l] < pivot && nums[r] > pivot) {
-        swap(nums[l++], nums[r--]);
+        std::swap(nums[l++], nums[r--]);
     
         for (int x : nums) {
           cout << x << " ";
@@ -42,7 +43,7 @@ private:
         r--;
       }
     }
-    swap(nums[left], nums[r]);
+    std::swap(nums[left], nums[r]);
     for (int x : nums) {
       cout << x << " ";
     }

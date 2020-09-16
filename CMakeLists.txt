@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 # set the project name
 project(msl)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Marking the directory as include directory so that tests and other can #include them
 include_directories(include)
