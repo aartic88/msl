@@ -145,14 +145,14 @@ if (r < 0 || r >= R || c < 0 || c >= C) return 0;
 // outside grid
 if (grid[r][c] != c1) return 0;
 // does not have color c1
-int ans = 1;
+//int ans = 0;
 // adds 1 to ans because vertex (r, c) has c1 as its color
 grid[r][c] = c2;
 // now recolors vertex (r, c) to c2 to avoid cycling!
 for (int d = 0; d < 8; d++) {
-    ans += floodfill(grid, r + dr[d], c + dc[d], c1, c2);
+    floodfill(grid, r + dr[d], c + dc[d], c1, c2);
 }
-return ans;
+return 0;
 // the code is neat due to dr[] and dc[]
 }
 

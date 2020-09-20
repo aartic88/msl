@@ -66,3 +66,10 @@ target_link_libraries(search_matrix msl gtest gtest_main pthread)
 add_executable(good_pairs leetcode/hashtable/good_pairs.cpp)
 target_link_libraries(good_pairs msl gtest gtest_main pthread)
 
+
+#-----------DFS/BFS-------------
+add_executable(courseschedule leetcode/dfs_bfs/courseschedule.cpp)
+target_link_libraries(courseschedule msl gtest gtest_main pthread)
+
+add_executable(courseschedule2 leetcode/dfs_bfs/courseschedule2.cpp)
+target_link_libraries(courseschedule2 msl gtest gtest_main pthread)
