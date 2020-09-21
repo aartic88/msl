@@ -68,8 +68,11 @@ target_link_libraries(good_pairs msl gtest gtest_main pthread)
 
 
 #-----------DFS/BFS-------------
-add_executable(courseschedule leetcode/dfs_bfs/courseschedule.cpp)
-target_link_libraries(courseschedule msl gtest gtest_main pthread)
+add_executable(course_schedule leetcode/dfs_bfs/course_schedule.cpp)
+target_link_libraries(course_schedule msl gtest gtest_main pthread)
 
-add_executable(courseschedule2 leetcode/dfs_bfs/courseschedule2.cpp)
-target_link_libraries(courseschedule2 msl gtest gtest_main pthread)
+add_executable(course_schedule2 leetcode/dfs_bfs/courses_chedule2.cpp)
+target_link_libraries(course_schedule2 msl gtest gtest_main pthread)
+
+add_executable(snakes_ladder leetcode/dfs_bfs/snakes_ladder.cpp)
+target_link_libraries(snakes_ladder msl gtest gtest_main pthread)
