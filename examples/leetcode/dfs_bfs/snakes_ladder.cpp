@@ -90,7 +90,7 @@ vector<vector<int>> makeAdjList(vector<vector<int>> &snakeLadderMatrix) {
   }
   return graphAL;
 }
-vector<int> snakesAndLadders(vector<vector<int>> &snakeLadderMatrix) {
+int snakesAndLadders(vector<vector<int>> &snakeLadderMatrix) {
   int numVertex = snakeLadderMatrix.size();
   int startingVertex = 1;
   vector<int> distance(numVertex, INT32_MAX);
@@ -110,7 +110,7 @@ vector<int> snakesAndLadders(vector<vector<int>> &snakeLadderMatrix) {
       }
     }
   }
-  return distance;
+  return distance[numVertex-1];
 }
 TEST(testGraph, basicShortestPath0) {
   vector<vector<int>> snakeLadderMatrix = {{
@@ -138,10 +138,9 @@ TEST(testGraph, basicShortestPath0) {
                                                -1,
                                            }};
   vector<vector<int>> graphAL = makeAdjList(snakeLadderMatrix);
-  vector<int> distance = snakesAndLadders(graphAL);
-  for (int i = 0; i < distance.size(); i++) {
-    cout << i << " " << distance[i] << endl;
-  }
+  int distance = snakesAndLadders(graphAL);
+    cout  << distance << endl;
+  
 }
 TEST(testGraph, basicShortestPath1) {
   vector<vector<int>> snakeLadderMatrix = {
@@ -149,10 +148,9 @@ TEST(testGraph, basicShortestPath1) {
       {-1, -1, -1, -1, -1, -1}, {-1, 35, -1, -1, 13, -1},
       {-1, -1, -1, -1, -1, -1}, {-1, 15, -1, -1, -1, -1}};
   vector<vector<int>> graphAL = makeAdjList(snakeLadderMatrix);
-  auto distance = snakesAndLadders(graphAL);
-  for (int i = 0; i < distance.size(); i++) {
-    cout << i << " " << distance[i] << endl;
-  }
+  int distance = snakesAndLadders(graphAL);
+    cout  << distance << endl;
+  
 }
 TEST(testGraph, basicShortestPath2) {
   vector<vector<int>> snakeLadderMatrix = {
@@ -160,17 +158,15 @@ TEST(testGraph, basicShortestPath2) {
       {-1, 3},
   };
   vector<vector<int>> graphAL = makeAdjList(snakeLadderMatrix);
-  auto distance = snakesAndLadders(graphAL);
-  for (int i = 0; i < distance.size(); i++) {
-    cout << i << " " << distance[i] << endl;
-  }
+  int distance = snakesAndLadders(graphAL);
+    cout  << distance << endl;
+  
 }
 TEST(testGraph, basicShortestPath3) {
   vector<vector<int>> snakeLadderMatrix = {
       {4, -1, -1}, {-1, -1, -1}, {-1, 8, -1}};
   vector<vector<int>> graphAL = makeAdjList(snakeLadderMatrix);
-  auto distance = snakesAndLadders(graphAL);
-  for (int i = 0; i < distance.size(); i++) {
-    cout << i << " " << distance[i] << endl;
-  }
+  int distance = snakesAndLadders(graphAL);
+    cout  << distance << endl;
+  
 }
