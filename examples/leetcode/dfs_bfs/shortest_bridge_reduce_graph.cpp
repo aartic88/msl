@@ -2,12 +2,13 @@
 #include <map>
 #include <queue>
 #include <set>
+#include <gtest/gtest.h>
 using namespace std;
 
 class Solution {
 private:
     int cellNumber(int i, int j, int N) {
-       if (i < 0 || j < 0) return -1;
+       if (i < 0 || j < 0 || i >=N || j>=N) return -1;
        return i * N + j; 
     }
     
@@ -27,8 +28,11 @@ private:
                 int cellId = cellNumber(i, j, N);
                 
                 int newCellNumber;
-                
-                newCellNumber = cellNumber(i, y1, N);
+
+                if (oneOnly && A[i][j] == 0) // If A[i][j] == 0 then we dont want to do anything with this vertex
+                 continue;
+                // You start at top left
+                newCellNumber = cellNumber(i, y1, N);  // Left
                 if (newCellNumber != -1) {
                     if (!oneOnly || (oneOnly && A[i][y1] == 1)) {
                         adjList[cellId].push_back(newCellNumber);
@@ -36,7 +40,7 @@ private:
                     }
                 }
                 
-                newCellNumber = cellNumber(i, y2, N);
+                newCellNumber = cellNumber(i, y2, N);  // Right
                 if (newCellNumber != -1) {
                      if (!oneOnly || (oneOnly && A[i][y2] == 1)) {
                         adjList[cellId].push_back(newCellNumber);
@@ -44,7 +48,7 @@ private:
                      }
                 }
                 
-                newCellNumber = cellNumber(x1, j, N);
+                newCellNumber = cellNumber(x1, j, N);  //Up
                 if (newCellNumber != -1) {
                     if (!oneOnly || (oneOnly && A[x1][j] == 1)) {
                         adjList[cellId].push_back(newCellNumber);
@@ -52,7 +56,7 @@ private:
                     }
                 }
                 
-                newCellNumber = cellNumber(x2, j, N);
+                newCellNumber = cellNumber(x2, j, N);  // Down
                 if (newCellNumber != -1) {
                     if (!oneOnly || (oneOnly && A[x2][j] == 1)) {
                         adjList[cellId].push_back(newCellNumber);
@@ -102,17 +106,19 @@ private:
     }
     
     
-    void reduceGraph(vector<vector<int>>& adjList, map<int, vector<int>> connectedComponentMap) {
+    void reduceGraph(vector<vector<int>>& adjList, map<int, vector<int>> & connectedComponentMap) {
         map<int, int> vertexToFirstVertexMap; 
-        for (int i = 0; i<2; i++) {
-            int firstVertexOfIsland = connectedComponentMap[i][0];
+        for (auto it = connectedComponentMap.begin(); it!= connectedComponentMap.end(); it++) {
+            int firstVertexOfIsland = it->second[0];
             // Notice the reference we dont want a copy of adJListOfFirstVertex as we want to modify the graph
             vector<int> & adJListOfFirstVertex = adjList[firstVertexOfIsland];   
             set<int> ss;
             // Insrt all the elements of adJListOfFirstVertex in set ss. 
-            ss.insert(adJListOfFirstVertex.begin(), adJListOfFirstVertex.end());  
-            for (int j = 1;j < connectedComponentMap[i].size();j++){
-                int vertexToMerge =  connectedComponentMap[i][j];
+            ss.insert(adJListOfFirstVertex.begin(), adJListOfFirstVertex.end());
+            auto it2 = it->second.begin();
+            it2++;
+            for (; it2 != it->second.end(); it2++){
+                int vertexToMerge =  *it2;
                 vertexToFirstVertexMap[vertexToMerge] = firstVertexOfIsland;
                 vector<int> & adJListOfVertex =  adjList[vertexToMerge];  // Avoid duplication of vector using reference
                 ss.insert(adJListOfVertex.begin(), adJListOfVertex.end());
@@ -124,6 +130,7 @@ private:
 
         for (int i = 0; i< adjList.size(); i++) {
             for (int j = 0; j< adjList[i].size(); j++) {
+                //Find all the edges endpoint to 1s 
                 if (vertexToFirstVertexMap.find(adjList[i][j]) != vertexToFirstVertexMap.end()) {
                     // Replace with firstVertex Of Connected Component
                     adjList[i][j] = vertexToFirstVertexMap[adjList[i][j]];   
@@ -133,10 +140,13 @@ private:
     }
 public:
     int shortestBridge(vector<vector<int>>& A) {
+        // We are creating a graph of 1 only which are connected to each other up, down left , right, zeroes are ignored
         vector<vector<int>> adjList = createGraph(A, true);
         int N = A.size();
         vector<int> connectedComponents(N * N, 0);
+        // Now we are trying to find the connected components we should get two island of 1s with one or more element.
         noOfConnectedComponents(adjList, connectedComponents);
+        // connectedComponentMap stores the two islands list island1 -> [...] and island2 -> [...]
         map<int, vector<int>> connectedComponentMap;
         for (int i = 0; i< A.size(); i++) {
             for (int j = 0; j< A[i].size();j++) {
@@ -146,14 +156,63 @@ public:
                 }
             }
         }
-        
+        // Create a graph of 0s and 1s connected eachother up, down, left right directtion
         adjList = createGraph(A, false);
         reduceGraph(adjList, connectedComponentMap);
-        vector<int> distance = bfs(adjList, connectedComponents, connectedComponentMap[0][1], 1);
-        int minDist = distance[0];
-        for (int i = 1; i< distance.size(); i++) {
-            minDist = min(minDist, distance[i]);
-        }
-        return minDist;
+        auto connectedComponentMapIterator = connectedComponentMap.begin();
+        int firstVertexOfIsland1 =  *connectedComponentMapIterator->second.begin();
+        connectedComponentMapIterator++;
+        int firstVertexOfIsland2 =  *connectedComponentMapIterator->second.begin();
+        vector<int> distance = bfs(adjList, connectedComponents, firstVertexOfIsland1, 1);
+        return distance[firstVertexOfIsland2];
     }
 };
+
+TEST(testgrid2, basicShortestPath1) {
+  Solution s;
+  vector<vector<int>> twoIslands = {
+      {0, 1},
+      {1, 0},
+  };
+  int distance = s.shortestBridge(twoIslands);
+  cout << distance << endl;
+}
+
+TEST(testgrid2, basicShortestPath2) {
+  Solution s;
+  vector<vector<int>> twoIslands = {
+      {0, 0, 0, 1, 1},
+      {1, 0, 0, 0, 1},
+      {1, 0, 0, 0, 1},
+      {1, 0, 1, 1, 1},
+      {1, 0, 0, 0, 0},
+  };
+  int distance = s.shortestBridge(twoIslands);
+  cout << distance << endl;
+}
+
+TEST(testgrid2, basicShortestPath3) {
+  Solution s;
+  vector<vector<int>> twoIslands = {
+      {1, 1, 1, 1, 1},
+      {0, 0, 1, 0, 0},
+      {0, 0, 0, 0, 0},
+      {1, 1, 1, 1, 1},
+      {1, 0, 0, 0, 1},
+  };
+  int distance = s.shortestBridge(twoIslands);
+  cout << distance << endl;
+}
+
+TEST(testgrid2, basicShortestPath4) {
+  Solution s;
+  vector<vector<int>> twoIslands = {
+      {1, 1, 1, 1, 1},
+      {0, 0, 1, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {1, 1, 0, 0, 0},
+  };
+  int distance = s.shortestBridge(twoIslands);
+  cout << distance << endl;
+}

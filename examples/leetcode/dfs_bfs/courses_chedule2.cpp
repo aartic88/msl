@@ -99,5 +99,4 @@ TEST(testGraph, Acyclicgraph)
     vector<int> order1 = findOrder(2, prereq1);
     vector<int> output1 = {};
     EXPECT_EQ(order1, output1);
-    ;
 }

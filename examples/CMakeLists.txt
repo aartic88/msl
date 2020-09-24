@@ -79,3 +79,6 @@ target_link_libraries(snakes_ladder msl gtest gtest_main pthread)
 
 add_executable(shortest_bridge leetcode/dfs_bfs/shortest_bridge.cpp)
 target_link_libraries(shortest_bridge msl gtest gtest_main pthread)
+
+add_executable(shortest_bridge_reduce_graph leetcode/dfs_bfs/shortest_bridge_reduce_graph.cpp)
+target_link_libraries(shortest_bridge_reduce_graph msl gtest gtest_main pthread)

@@ -54,59 +54,49 @@ int bfs(const vector<vector<int>> &snakeLadderMatrix)
 }
 */
 
-vector<int> convert2Dto1D(vector<vector<int>> snakeLadderMatrix) {
-  int n = snakeLadderMatrix.size();
-  for (int i = 1; i < n; i += 2) {
-    if (n % 2 == 0)
-      reverse(snakeLadderMatrix[i].begin(), snakeLadderMatrix[i].end());
-    else
-      reverse(snakeLadderMatrix[i - 1].begin(), snakeLadderMatrix[i - 1].end());
-  }
-  vector<int> matrix1Dimage;
-  for (int i = n - 1; i >= 0; i--)
-    for (int j = n - 1; j >= 0; j--)
-      matrix1Dimage.push_back(snakeLadderMatrix[i][j]);
-  return matrix1Dimage;
+int mapper(vector<vector<int>> &snakeLadderMatrix, int i) {
+    int N = snakeLadderMatrix.size();
+    int NMinus = N - 1;
+    int rowId = NMinus - i/N;
+    int colId =  rowId % 2 ?  i%N : NMinus - i%N ;
+    return snakeLadderMatrix[rowId][colId];
 }
 
 vector<vector<int>> makeAdjList(vector<vector<int>> &snakeLadderMatrix) {
   int n = snakeLadderMatrix.size();
   vector<vector<int>> graphAL(n * n);
-  vector<int> matrix1DImage = convert2Dto1D(snakeLadderMatrix);
+  //vector<int> matrix1DImage = convert2Dto1D(snakeLadderMatrix);
 
   for (int i = 0; i < n * n; i++) {
     for (int j = i + 1; j <= i + 6 && j < n * n; j++) {
-      if (matrix1DImage[i] != -1) {
-        graphAL[i].push_back(matrix1DImage[i]);
-        break;
-      } else {
-        if (matrix1DImage[j] == -1) {
-          graphAL[i].push_back(j + 1);
-        } else {
-          graphAL[i].push_back(matrix1DImage[j]);
-        }
+      if (mapper(snakeLadderMatrix, i) == -1 && mapper(snakeLadderMatrix, j) == -1) {
+        graphAL[i].push_back(j);
+      } else if (mapper(snakeLadderMatrix, i) == -1 && mapper(snakeLadderMatrix, j) != -1) {
+         graphAL[i].push_back(mapper(snakeLadderMatrix, j));
       }
+      if (graphAL[i].size() > 0)
+      cout << i << " pushed " <<  graphAL[i][graphAL[i].size()-1] << endl; 
     }
   }
   return graphAL;
 }
-int snakesAndLadders(vector<vector<int>> &snakeLadderMatrix) {
-  int numVertex = snakeLadderMatrix.size();
-  int startingVertex = 1;
+int snakesAndLadders(const vector<vector<int>> &snakeLadderMatrix) {
+  const int numVertex = snakeLadderMatrix.size();
+  int startingVertex = 0;
   vector<int> distance(numVertex, INT32_MAX);
-  distance[startingVertex - 1] = 0;
+  distance[startingVertex] = 0;
   queue<int> q;
   q.push(startingVertex);
 
   while (!q.empty()) {
     int u = q.front();
     q.pop();
-    for (int j = 0; j < (int)snakeLadderMatrix[u - 1].size(); j++) {
-      int e = snakeLadderMatrix[u - 1][j];
-      if (distance[e - 1] == INT32_MAX) {
-        distance[e - 1] = distance[u - 1] + 1;
+    for (int j = 0; j < (int)snakeLadderMatrix[u].size(); j++) {
+      int e = snakeLadderMatrix[u][j];
+      cout << u << ", "<<j << " = "<< e << endl;
+      if (distance[e ] == INT32_MAX) {
+        distance[e] = distance[u] + 1;
         q.push(e);
-        cout << e;
       }
     }
   }
@@ -137,16 +127,24 @@ TEST(testGraph, basicShortestPath0) {
                                                -1,
                                                -1,
                                            }};
+  EXPECT_EQ(mapper(snakeLadderMatrix, 5) , 15);
   vector<vector<int>> graphAL = makeAdjList(snakeLadderMatrix);
-  int distance = snakesAndLadders(graphAL);
-    cout  << distance << endl;
+  EXPECT_EQ(snakesAndLadders(graphAL), 1);
+    //cout  << distance << endl;
   
 }
 TEST(testGraph, basicShortestPath1) {
   vector<vector<int>> snakeLadderMatrix = {
-      {-1, -1, -1, -1, -1, -1}, {-1, -1, -1, -1, -1, -1},
-      {-1, -1, -1, -1, -1, -1}, {-1, 35, -1, -1, 13, -1},
-      {-1, -1, -1, -1, -1, -1}, {-1, 15, -1, -1, -1, -1}};
+      {-1, -1, -1, -1, -1, -1}, 
+      {-1, -1, -1, -1, -1, -1},
+      {-1, -1, -1, -1, -1, -1}, 
+      {-1, 35, -1, -1, 13, -1},
+      {-1, -1, -1, -1, -1, -1}, 
+      {-1, 15, -1, -1, -1, -1}};
+
+  EXPECT_EQ(mapper(snakeLadderMatrix, 13) , 35);
+  EXPECT_EQ(mapper(snakeLadderMatrix, 1) , 15); 
+  EXPECT_EQ(mapper(snakeLadderMatrix, 16) , 13);   
   vector<vector<int>> graphAL = makeAdjList(snakeLadderMatrix);
   int distance = snakesAndLadders(graphAL);
     cout  << distance << endl;
@@ -165,6 +163,8 @@ TEST(testGraph, basicShortestPath2) {
 TEST(testGraph, basicShortestPath3) {
   vector<vector<int>> snakeLadderMatrix = {
       {4, -1, -1}, {-1, -1, -1}, {-1, 8, -1}};
+
+  cout <<    snakeLadderMatrix[0][5]; 
   vector<vector<int>> graphAL = makeAdjList(snakeLadderMatrix);
   int distance = snakesAndLadders(graphAL);
     cout  << distance << endl;
