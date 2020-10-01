@@ -82,3 +82,11 @@ target_link_libraries(shortest_bridge msl gtest gtest_main pthread)
 
 add_executable(shortest_bridge_reduce_graph leetcode/dfs_bfs/shortest_bridge_reduce_graph.cpp)
 target_link_libraries(shortest_bridge_reduce_graph msl gtest gtest_main pthread)
+
+add_executable(num_of_islands leetcode/dfs_bfs/num_of_islands.cpp)
+target_link_libraries(num_of_islands msl gtest gtest_main pthread)
+
+#-------GREEDY---------------
+
+add_executable(prims leetcode/greedy_algorithm/prims.cpp)
+target_link_libraries(prims msl gtest gtest_main pthread)
