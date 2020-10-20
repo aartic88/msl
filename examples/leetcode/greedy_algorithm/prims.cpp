@@ -77,7 +77,7 @@ int prims_algorithm(vector<vector<int>> weightedMatrix) {
     cost.remove(vertex);
     forest.insert(vertex);
     if (edge_cheapest[vertex].first != -1) {
-      forest.insert(edge_cheapest[vertex].first);
+      forest.insert(edge_cheapest[vertex].first);                
       forest.insert(edge_cheapest[vertex].second);
     }
 

@@ -1,3 +1,18 @@
+## Project Details
+* Singly, Doubly and Circularly Linked List
+* Array-Based implementation of Vector,Stack and Queue.
+* Linked List-Based implementation of Stack, Queue, Dequeue.
+* Linked Binary Tree
+* Implemented a Priority Queue using List
+* Implemented a Priority Queue using Heap
+* Hash table implementation
+* Binary Search Tree implementation
+
+Code related to all of above is included in `include` folder and their possible testcases in `tests` folder.
+
+## Leetcode Problems
+Few Leetcode problems are solves in `example\leetcode` folder.
+
 ## Simple Application
 CmakeLists.txt --> How to build the project and create executable
 
@@ -7,25 +22,15 @@ README.md --> Documentation in markdown format
 
 .gitignore --> Files that should not be pushed to git basically *.o, build etc
 
-## Using VS code
-```
-cd ~\Sources
-git clone https://github.com/deepakk87/msl.git
-```
 
-Install the following plugin
+
+## Install the following plugin
 ```
 code --install-extension ms-vscode.cpptools
 code --install-extension ms-vscode.cmake-tools
 code --install-extension wayou.vscode-todo-highlight
 ```
 
-## Open in vs code
-File -> Open Folder -> ~/Sources/msl
-
-Press F7 to build
-
-Press debug/run button at the bottom to run/debug
 
 ## Detailed Documentation (Cmake with vs code)
 Help here https://vector-of-bool.github.io/docs/vscode-cmake-tools/
@@ -46,11 +51,6 @@ https://vector-of-bool.github.io/docs/vscode-cmake-tools/debugging.html
 
 `git pull --rebase` <-- If push fails do this and then push again
 
-## List of interesting commits
-* Simple Hello World application using cmake
-https://github.com/deepakk87/msl/commit/20d734dd192d948a49a18b50221db2897375ceb1
 
-* Adding gtest tests with cmake
-https://github.com/deepakk87/msl/commit/7d88fa17ceb4f47285f943a4d07b801f61960c9b
 
 

@@ -90,3 +90,9 @@ target_link_libraries(num_of_islands msl gtest gtest_main pthread)
 
 add_executable(prims leetcode/greedy_algorithm/prims.cpp)
 target_link_libraries(prims msl gtest gtest_main pthread)
+
+#-------DESIGN---------------
+
+add_executable(lru_cache leetcode/design/lru_cache.cpp)
+target_link_libraries(lru_cache msl gtest gtest_main pthread)
+
